@@ -1,35 +1,35 @@
 export const sidebarLinks = [
     {
-        title: 'Dashboard',
-        url: '/',
+        label: 'Dashboard',
+        route: '/',
         icon: '/icons/home.svg',
     }, {
-        title: 'Questions',
-        url: '/questions',
+        label: 'Questions',
+        route: '/questions',
         icon: '/icons/question.svg',
     }, {
-        title: 'Community',
-        url: '/community',
+        label: 'Community',
+        route: '/community',
         icon: '/icons/users.svg',
     }, {
-        title: 'Collections',
-        url: '/collections',
+        label: 'Collections',
+        route: '/collections',
         icon: '/icons/star.svg',
     }, {
-        title: 'Find Jobs',
-        url: '/find-jobs',
+        label: 'Find Jobs',
+        route: '/find-jobs',
         icon: '/icons/suitcase.svg',
     }, {
-        title: 'Find Tags',
-        url: '/find-tags',
+        label: 'Tags',
+        route: '/tags',
         icon: '/icons/tag.svg',
     }, {
-        title: 'Profile',
-        url: '/profile',
+        label: 'Profile',
+        route: '/profile',
         icon: '/icons/user.svg',
     }, {
-        title: 'Ask a question',
-        url: '/ask-question',
+        label: 'Ask a question',
+        route: '/ask-question',
         icon: '/icons/question.svg',
     }
 ]

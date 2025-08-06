@@ -1,11 +1,9 @@
 
-import BrandLogo from "@/components/BrandLogo";
+
 import React from "react";
 
 import Theme from "./Theme";
-import { createClient } from "@/lib/supabase/server";
-import UserBtn from "@/components/navigation/navbar/UserMenu";
-import MobileNavigation from "./MobileNavigation";
+
 import UserMenu from "@/components/navigation/navbar/UserMenu";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 

@@ -19,14 +19,3 @@ interface Question {
     views: number;
     createdAt: Date;
 }
-
-interface Profile {
-    name: string;
-    username: string;
-    email: string;
-    bio?: string;
-    image: string;
-    location?: string;
-    portfolio?: string;
-    reputation?: number;
-}
