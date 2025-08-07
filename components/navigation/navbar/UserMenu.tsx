@@ -17,6 +17,7 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { LogOut, Settings, User } from "lucide-react"
 import Link from "next/link"
+import Logout from "./Logout"
 
 const UserMenu = async () => {
     
@@ -46,7 +47,7 @@ const UserMenu = async () => {
                     <DropdownMenuSeparator />
                     <DropdownMenuItem variant="destructive">
                         <LogOut className="h-[1.2rem] w-[1.2rem] mr-2" />
-                        {/* <Logout /> */}
+                        <Logout />
                     </DropdownMenuItem>
                 </DropdownMenuContent>
             </DropdownMenu>

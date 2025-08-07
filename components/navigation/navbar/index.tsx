@@ -1,21 +1,17 @@
-
-
 import React from "react";
-
 import Theme from "./Theme";
-
 import UserMenu from "@/components/navigation/navbar/UserMenu";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 
 const Navbar = async () => {
-    
 
     return (
-        <nav className="p-4 flex items-center justify-between sticky top-0 bg-background z-10">
+        <nav className="flex-between background-light900_dark200 sticky top-0 z-50 w-full gap-5 p-6 shadow-light-300 dark:shadow-none sm:px-12">
 
             {/* LEFT */}
             <SidebarTrigger />
 
+            {/* CENTER */}
             <p>Global Search</p>
 
             {/* RIGHT */}

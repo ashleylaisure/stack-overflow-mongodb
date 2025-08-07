@@ -1,3 +1,4 @@
+import { auth } from '@/auth'
 import CardList from '@/components/cards/CardList'
 import TodoList from '@/components/cards/TodoList'
 import AreaChartComponent from '@/components/charts/AreaChart'
@@ -7,7 +8,10 @@ import React from 'react'
 
 
 
-const Dashboard = () => {
+const Dashboard = async () => {
+    const session = await auth()
+    console.log("Session in Dashboard:", session)
+
     return (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="">

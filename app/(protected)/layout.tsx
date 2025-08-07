@@ -1,8 +1,8 @@
 import { cookies } from "next/headers"
-import AppSidebar from "@/components/navigation/AppSidebar";
 import NavBar from "@/components/navigation/navbar";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { ReactNode } from "react";
+import LeftSidebar from "@/components/navigation/LeftSidebar";
 
 
 export default async function HomeLayout({ children }: { children: ReactNode }) {
@@ -12,7 +12,7 @@ export default async function HomeLayout({ children }: { children: ReactNode }) 
     return (
         <>
         <SidebarProvider defaultOpen={defaultOpen}>
-            <AppSidebar />
+            <LeftSidebar />
             <main className="w-full">
                 <NavBar />
                 <section className="flex min-h-screen flex-1 flex-col px-6 pb-6 pt-5 max-md:pb-14 sm:px-14">

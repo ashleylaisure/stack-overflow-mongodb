@@ -11,7 +11,7 @@ const BrandLogo = ({isMobileNav, isOpen} : {isMobileNav?: boolean, isOpen?: bool
     return (
         <div>
             {/* TODO: if user is logged in go to dashboard if not go to landing page */}
-            <Link href={ROUTES.LANDING_PAGE} className="flex items-center gap-1">
+            <Link href={ROUTES.HOME} className="flex items-center gap-1">
                 <Image
                     src="/images/site-logo.svg"
                     width={23}

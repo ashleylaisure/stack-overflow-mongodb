@@ -23,21 +23,21 @@ import BrandLogo from "../BrandLogo"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "../ui/dropdown-menu"
 import { ChevronDown, ChevronUp, Plus, Projector, User2 } from "lucide-react"
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "../ui/collapsible"
-import NavLinks from "./navbar/NavLinks"
+import NavLinks from "./NavLinks"
 
-export default function AppSidebar() {
+export default function LeftSidebar() {
     return (
         <Sidebar collapsible="icon">
             {/* HEADER */}
-            <SidebarHeader className="py-4">
+            <SidebarHeader className="py-6">
                 <SidebarMenu>
                     <SidebarMenuItem>
                         <SidebarMenuButton asChild>
                         <Link href="/">
                             <Image
                                 src="/images/site-logo.svg"
-                                width={23}
-                                height={23}
+                                width={25}
+                                height={25}
                                 alt="DevFlow Logo"
                             />
                             <p className="h2-bold font-space-grotesk text-dark-100 dark:text-light-900">
@@ -56,25 +56,7 @@ export default function AppSidebar() {
                     <SidebarGroupLabel className="hidden">Application</SidebarGroupLabel>
                     <SidebarGroupContent>
                         <SidebarMenu>
-                        {/* {sidebarLinks.map((item) => (
-                            <SidebarMenuItem key={item.title}>
-                                <SidebarMenuButton asChild>
-                                    <Link href={item.url}>
-                                        <Image 
-                                            src={item.icon} 
-                                            alt={item.title} 
-                                            width={16} 
-                                            height={16} 
-                                            className="invert-colors"/>
-                                        <span>{item.title}</span>
-                                    </Link>
-                                </SidebarMenuButton>
-                                {item.title === "Questions" && (
-                                    <SidebarMenuBadge className="bg-sidebar-border">24</SidebarMenuBadge>
-                                )}
-                            </SidebarMenuItem>
-                        ))} */}
-                        <NavLinks />
+                            <NavLinks />
                         </SidebarMenu>
                     </SidebarGroupContent>
                 </SidebarGroup>

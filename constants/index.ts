@@ -1,7 +1,7 @@
 export const sidebarLinks = [
     {
         label: 'Dashboard',
-        route: '/',
+        route: '/dashboard',
         icon: '/icons/home.svg',
     }, {
         label: 'Questions',

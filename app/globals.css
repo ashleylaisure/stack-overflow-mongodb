@@ -312,7 +312,7 @@
 }
 
 @utility button-primary {
-  @apply background-dark400_light900 body-medium text-dark200_light800 min-h-12 flex-1 rounded-2 p-4 cursor-pointer transition-colors duration-200 ease-in-out hover:background-light800_dark300; 
+  @apply background-dark400_light900 body-medium text-dark200_light800 min-h-12 flex-1 rounded-2 px-4 py-3.5; 
 }
 
 @utility btn {

@@ -2,61 +2,62 @@
 
 import Image from "next/image";
 import { signIn } from "next-auth/react";
-import React from "react";
-
 import ROUTES from "@/constants/routes";
-import { toast } from "@/hooks/use-toast";
-
+import { toast } from "sonner";
 import { Button } from "../ui/button";
 
 const SocialAuthForm = () => {
-  const buttonClass =
-    "background-dark400_light900 body-medium text-dark200_light800 min-h-12 flex-1 rounded-2 px-4 py-3.5";
 
-  const handleSignIn = async (provider: "github" | "google") => {
+  const handleSignIn = async (provider: 'google') => {
     try {
+      // throw new Error("Sign-in not implemented yet");
       await signIn(provider, {
-        callbackUrl: ROUTES.HOME,
-        redirect: false,
-      });
+          callbackUrl: ROUTES.HOME,
+      })
     } catch (error) {
-      console.log(error);
-
-      toast({
-        title: "Sign-in Failed",
-        description:
-          error instanceof Error
-            ? error.message
-            : "An error occured during sign-in",
-        variant: "destructive",
-      });
+        console.log("Error during sign-in:", error);
+        // Display a toast notification with the error message
+        toast.error("Sign in failed", {
+            description:
+                error instanceof Error
+                    ? error.message
+                    : "An error occured while signing in",
+        });
     }
   };
 
   return (
-    <div className="mt-10 flex flex-wrap gap-2.5">
-      <Button className={buttonClass} onClick={() => handleSignIn("github")}>
-        <Image
-          src="/icons/github.svg"
-          alt="Github Logo"
-          width={20}
-          height={20}
-          className="invert-colors mr-2.5 object-contain"
-        />
-        <span>Log in with GitHub</span>
-      </Button>
+    <>
+      <div className="flex items-center justify-center gap-4 my-4">
+        <hr className="flex-grow border-t-1.5 border-dark-500_light400" />
+        <span className="text-xs text-dark500_light400 font-medium">OR</span>
+        <hr className="flex-grow border-t-1.5 border-dark-500_light400" />
+      </div>
 
-      <Button className={buttonClass} onClick={() => handleSignIn("google")}>
-        <Image
-          src="/icons/google.svg"
-          alt="Google Logo"
-          width={20}
-          height={20}
-          className="mr-2.5 object-contain"
-        />
-        <span>Log in with Google</span>
-      </Button>
-    </div>
+      <div className="flex flex-wrap gap-2.5">
+        {/* <Button className='button-primary' onClick={() => handleSignIn()}>
+          <Image
+            src="/icons/github.svg"
+            alt="Github Logo"
+            width={20}
+            height={20}
+            className="invert-colors mr-2.5 object-contain"
+            />
+          <span>Log in with GitHub</span>
+        </Button> */}
+
+        <Button className='button-primary' onClick={() => handleSignIn('google')}>
+          <Image
+            src="/icons/google.svg"
+            alt="Google Logo"
+            width={20}
+            height={20}
+            className="mr-2.5 object-contain"
+            />
+          <span>Log in with Google</span>
+        </Button>
+      </div>
+    </>
   );
 };
 
