@@ -1,9 +1,9 @@
-import { cookies } from 'next/headers';
+
 import React from 'react'
 import Image from "next/image";
 import Link from "next/link";
 import ROUTES from '@/constants/routes';
-import { cn } from '@/lib/utils';
+
 
 const BrandLogo = ({isMobileNav, isOpen} : {isMobileNav?: boolean, isOpen?: boolean}) => {
     const showText = isMobileNav || isOpen;  

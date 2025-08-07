@@ -1,5 +1,7 @@
 import { auth } from '@/auth'
-import CardList from '@/components/cards/CardList'
+import HotQuestionsCard from '@/components/cards/HotQuestionsCard'
+import CardList from '@/components/cards/HotQuestionsCard'
+import PopularTagsCard from '@/components/cards/PopularTagsCard'
 import TodoList from '@/components/cards/TodoList'
 import AreaChartComponent from '@/components/charts/AreaChart'
 import BarChartComponent from '@/components/charts/BarChart'
@@ -17,8 +19,8 @@ const Dashboard = async () => {
             <div className="">
                 <BarChartComponent />
             </div>
-            <div className="bg-primary-foreground p-4 rounded-lg">
-                <CardList title="popularContent" />
+            <div className="bg-primary-foreground light-border p-6 shadow-light-300 dark:shadow-none rounded-lg">
+                <HotQuestionsCard />
             </div>
             <div className="">
                 <PieChartComponent />
@@ -29,8 +31,8 @@ const Dashboard = async () => {
             <div className="">
                 <AreaChartComponent />
             </div>
-            <div className="bg-primary-foreground p-4 rounded-lg">
-                <CardList title="latestTransactions" />
+            <div className="bg-primary-foreground light-border p-6 shadow-light-300 dark:shadow-none rounded-lg">
+                <PopularTagsCard />
             </div>
         </div>
     )

@@ -1,4 +1,4 @@
-import CardList from '@/components/cards/CardList'
+import CardList from '@/components/cards/HotQuestionsCard'
 import React from 'react'
 
 import {

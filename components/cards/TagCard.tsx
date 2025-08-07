@@ -3,7 +3,7 @@ import Link from "next/link";
 import React from "react";
 
 import ROUTES from "@/constants/routes";
-import { getDeviconClassName } from "@/lib/utils";
+import { cn, getDeviconClassName } from "@/lib/utils";
 
 import { Badge } from "../ui/badge";
 
@@ -15,6 +15,7 @@ interface Props {
   compact?: boolean;
   remove?: boolean;
   isButton?: boolean;
+  isCard?: boolean;
   handleRemove?: () => void;
 }
 
@@ -26,6 +27,7 @@ const TagCard = ({
   compact,
   remove,
   isButton,
+  isCard,
   handleRemove,
 }: Props) => {
   const iconClass = getDeviconClassName(name);
@@ -36,7 +38,9 @@ const TagCard = ({
 
   const Content = (
     <>
-      <Badge className="subtle-medium background-light800_dark300 text-light400_light500 flex flex-row gap-2 rounded-md border-none px-4 py-2 uppercase">
+      <Badge className={cn("subtle-medium  text-light400_light500 flex flex-row gap-2 rounded-md border-none px-4 py-2 uppercase",
+        isCard ? "bg-color-none": "background-light800_dark300",
+      )}>
         <div className="flex-center space-x-2">
           <i className={`${iconClass} text-sm`}></i>
           <span>{name}</span>
@@ -55,7 +59,7 @@ const TagCard = ({
       </Badge>
 
       {showCount && (
-        <p className="small-medium text-dark500_light700">{questions}</p>
+        <p className="small-medium text-light400_light500 flex items-center mr-3">{questions}</p>
       )}
     </>
   );
