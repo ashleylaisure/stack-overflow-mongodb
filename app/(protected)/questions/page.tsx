@@ -46,11 +46,11 @@ const QuestionsPage = async ({searchParams} : SearchParams ) => {
 
     const filteredQuestions = questions.filter((question) => {
     const matchesQuery = question.title
-      .toLowerCase()
-      .includes(query.toLowerCase());
+        .toLowerCase()
+        .includes(query.toLowerCase());
     const matchesFilter = filter
-      ? question.tags[0].name.toLowerCase() === filter.toLowerCase()
-      : true;
+        ? question.tags[0].name.toLowerCase() === filter.toLowerCase()
+        : true;
     return matchesQuery && matchesFilter;
   });
 
