@@ -1,4 +1,5 @@
 import mongoose, { Mongoose } from 'mongoose';
+import logger from './logger';
 
 const MONGODB_URI = process.env.MONGODB_URI as string;
 
@@ -25,6 +26,7 @@ if (!cached) {
 
 const dbConnect = async (): Promise<Mongoose> => {
     if (cached.connection) {
+        logger.info('Using cached MongoDB connection');
         return cached.connection;
     }
 
@@ -32,10 +34,12 @@ const dbConnect = async (): Promise<Mongoose> => {
         cached.promise = mongoose.connect(MONGODB_URI, {
             dbName: 'stack-overflow',
         }).then((result) => {
-            console.log('MongoDB connected:', result.connection.host);
+            // console.log('MongoDB connected:', result.connection.host);
+            logger.info(`MongoDB connected: ${result.connection.host}`);
             return result;
         }).catch((error) => {
-            console.error('MongoDB connection error:', error);
+            // console.error('MongoDB connection error:', error);
+            logger.error('MongoDB connection error:', error);
             throw error;
         });
     }
