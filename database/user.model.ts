@@ -18,7 +18,7 @@ const UserSchema = new Schema({
     username: {type: String, required: true, unique: true},
     email: {type: String, required: true, unique: true},
     bio: {type: String},
-    image: {type: String, required: true},
+    image: {type: String},
     location: {type: String},
     // change to loc?
     portfolio: {type: String},
