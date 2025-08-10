@@ -1,11 +1,11 @@
 "use client";
 
-import { signOut } from "@/auth";
+import { signOut } from "next-auth/react";
 import ROUTES from "@/constants/routes";
 import Link from "next/link";
 import React, { useState } from "react";
 
-const Logout = () => {
+const LogoutLink = () => {
     const [loading, setLoading] = useState(false);
     
     const handleLogout = async (event: React.FormEvent) => {
@@ -18,7 +18,7 @@ const Logout = () => {
 
     return (
         <div>
-            <Link href="/logout" 
+            <Link href="#" 
                 onClick={handleLogout} 
                 className="flex items-center gap-4">
                 {loading ? "Signing out..." : "Sign out"}
@@ -27,4 +27,4 @@ const Logout = () => {
     );
 };
 
-export default Logout;
+export default LogoutLink;

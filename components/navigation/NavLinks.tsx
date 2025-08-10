@@ -10,10 +10,9 @@ import { usePathname } from 'next/navigation'
 import React from 'react'
 
 
-const NavLinks = () => {
+const NavLinks = ({ userId }: {userId?: string}) => {
     const pathname = usePathname()
-    const userId = 1; // Replace with actual user ID logic
-
+    
     return (
         <>
         {sidebarLinks.map((link) => {

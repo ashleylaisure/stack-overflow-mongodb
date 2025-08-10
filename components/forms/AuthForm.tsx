@@ -57,7 +57,7 @@ const AuthForm = <T extends FieldValues>({
         const result = (await onSubmit(data)) as ActionResponse;
 
         if (result?.success) {
-            toast("Success", {
+            toast.success("Success", {
                 description:
                     formType === "SIGN_IN"
                         ? "Signed in successfully"

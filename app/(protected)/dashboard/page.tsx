@@ -11,8 +11,6 @@ import React from 'react'
 
 
 const Dashboard = async () => {
-    const session = await auth()
-    console.log("Session in Dashboard:", session)
 
     return (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

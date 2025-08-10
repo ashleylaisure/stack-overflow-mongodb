@@ -1,6 +1,5 @@
 import BrandLogo from "@/components/BrandLogo"
-import { Button } from "@/components/ui/button"
-import ROUTES from "@/constants/routes"
+import UserAvatar from "@/components/navigation/navbar/UserAvatar"
 import Link from "next/link"
 
 export function NavBar() {
@@ -26,20 +25,7 @@ export function NavBar() {
             </Link>
             
             <div className='flex flex-col gap-3'>
-                        
-                <Link href={ROUTES.SIGN_IN}>
-                    <Button className='small-medium btn-secondary w-full min-h-[41px] rounded-lg px-4 py-3'>
-                        <span className='primary-text-gradient'>Log In</span>
-                    </Button>
-                </Link>
-
-                <Link href={ROUTES.SIGN_UP}>
-                    <Button className='small-medium light-border-2 btn-tertiary min-h-[41px]
-                    w-full rounded-lg border px-4 py-3 shadow-none'>
-                        <span className='primary-text-gradient'>Sign Up</span>
-                    </Button>
-                </Link>
-
+                <UserAvatar />
             </div>
         </nav>
 

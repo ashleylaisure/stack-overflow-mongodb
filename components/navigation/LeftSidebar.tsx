@@ -20,12 +20,26 @@ import { sidebarLinks } from "@/constants"
 import Image from "next/image"
 import Link from "next/link"
 import BrandLogo from "../BrandLogo"
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "../ui/dropdown-menu"
-import { ChevronDown, ChevronUp, Plus, Projector, User2 } from "lucide-react"
+import { 
+    DropdownMenu, 
+    DropdownMenuContent, 
+    DropdownMenuGroup, 
+    DropdownMenuItem, 
+    DropdownMenuSeparator, 
+    DropdownMenuTrigger 
+} from "../ui/dropdown-menu"
+import { ChevronDown, ChevronUp, Layers, LogOut, Plus, Projector, Settings, User, User2 } from "lucide-react"
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "../ui/collapsible"
 import NavLinks from "./NavLinks"
+import UserMenu from "./navbar/UserAvatar"
+import { auth } from "@/auth"
+import LogoutLink from "./navbar/LogoutLink"
+import ROUTES from "@/constants/routes"
 
-export default function LeftSidebar() {
+export default async function LeftSidebar() {
+    const session = await auth()
+    const userId = session?.user?.id
+
     return (
         <Sidebar collapsible="icon">
             {/* HEADER */}
@@ -56,7 +70,7 @@ export default function LeftSidebar() {
                     <SidebarGroupLabel className="hidden">Application</SidebarGroupLabel>
                     <SidebarGroupContent>
                         <SidebarMenu>
-                            <NavLinks />
+                            <NavLinks userId={userId}/>
                         </SidebarMenu>
                     </SidebarGroupContent>
                 </SidebarGroup>
@@ -176,15 +190,27 @@ export default function LeftSidebar() {
                                 align="end"
                                 className="w-[--radix-popper-anchor-width] min-w-[200px]"
                             >
-                                <DropdownMenuItem>
-                                    <span>Account</span>
-                                </DropdownMenuItem>
-                                <DropdownMenuItem>
-                                    <span>Billing</span>
-                                </DropdownMenuItem>
-                                <DropdownMenuItem>
-                                    <span>Sign out</span>
-                                </DropdownMenuItem>
+                                <DropdownMenuGroup>
+                                    <DropdownMenuItem>
+                                        <Link href={`/profile/${userId}`} className="flex items-center gap-4">
+                                            <User className="h-[1.2rem] w-[1.2rem]" />
+                                            Profile
+                                        </Link>
+                                    </DropdownMenuItem>
+                                    <DropdownMenuItem>
+                                        <Settings className="h-[1.2rem] w-[1.2rem] mr-2" />
+                                        Settings
+                                    </DropdownMenuItem>
+                                    <DropdownMenuItem>
+                                        <Layers className="h-[1.2rem] w-[1.2rem] mr-2" />
+                                        <span>Billing</span>
+                                    </DropdownMenuItem>
+                                </DropdownMenuGroup>
+                                <DropdownMenuSeparator />
+                                    <DropdownMenuItem variant="destructive">
+                                        <LogOut className="h-[1.2rem] w-[1.2rem] mr-2" />
+                                        <LogoutLink />
+                                    </DropdownMenuItem>
                             </DropdownMenuContent>
                         </DropdownMenu>
                     </SidebarMenuItem>
