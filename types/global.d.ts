@@ -46,3 +46,11 @@ interface RouteParams {
     // searchParams: /questions?tag=javascript
     searchParams: Promise<Record<string, string>>;
 }
+
+interface PaginatedSearchParams {
+    page?: number;
+    pageSize?: number;
+    query?: string;
+    filter?: string;
+    sort?: string;
+}

@@ -28,8 +28,9 @@ export const metadata: Metadata = {
   },
 };
 
-export default async function RootLayout({ children,}: Readonly<{children: React.ReactNode;}>) {
+const RootLayout = async ({ children }: { children: React.ReactNode }) => {
 
+  // access the session that'll be generated once the user signs in
   const session = await auth()
 
   return (
@@ -41,6 +42,8 @@ export default async function RootLayout({ children,}: Readonly<{children: React
           href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css"
         />
       </head>
+      {/* Wrap the whole application with the session provider
+        providing the session of the currently logged in user to all components */}
       <SessionProvider session={session}>
         <body className={`${inter.className} ${spaceGrotesk.variable} antialiased`}>
           <ThemeProvider 
@@ -58,3 +61,5 @@ export default async function RootLayout({ children,}: Readonly<{children: React
     </html>
   );
 }
+
+export default RootLayout;

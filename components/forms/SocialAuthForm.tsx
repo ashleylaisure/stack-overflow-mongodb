@@ -8,9 +8,8 @@ import { Button } from "../ui/button";
 
 const SocialAuthForm = () => {
 
-  const handleSignIn = async (provider: 'google') => {
+  const handleSignIn = async (provider: 'google' | 'github') => {
     try {
-      // throw new Error("Sign-in not implemented yet");
       await signIn(provider, {
           callbackUrl: ROUTES.HOME,
       })
@@ -35,7 +34,7 @@ const SocialAuthForm = () => {
       </div>
 
       <div className="flex flex-wrap gap-2.5">
-        {/* <Button className='button-primary' onClick={() => handleSignIn()}>
+        <Button className='button-primary' onClick={() => handleSignIn('github')}>
           <Image
             src="/icons/github.svg"
             alt="Github Logo"
@@ -44,7 +43,7 @@ const SocialAuthForm = () => {
             className="invert-colors mr-2.5 object-contain"
             />
           <span>Log in with GitHub</span>
-        </Button> */}
+        </Button>
 
         <Button className='button-primary' onClick={() => handleSignIn('google')}>
           <Image
