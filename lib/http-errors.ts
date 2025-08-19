@@ -3,6 +3,7 @@ export class RequestError extends Error{
     errors?: Record<string, string[]>;
 
     constructor(statusCode: number, message: string, errors?: Record<string, string[]>) {
+        // super calls the parent class and passes the error message
         super(message);
         this.statusCode = statusCode;
         this.errors = errors;
@@ -18,6 +19,7 @@ export class ValidationError extends RequestError{
         this.errors = fieldErrors;
     }
 
+    // a static function that formats field errors
     static formatFieldErrors(errors: Record<string, string[]>): string {
         const formattedMessages = Object.entries(errors).map(([field, messages]) => {
             const fieldName = field.charAt(0).toUpperCase() + field.slice(1);

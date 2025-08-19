@@ -4,6 +4,7 @@ import HomeFilter from '@/components/filters/HomeFilter'
 import LocalSearch from '@/components/search/LocalSearch'
 import { Button } from '@/components/ui/button'
 import ROUTES from '@/constants/routes'
+import { getQuestions } from '@/lib/actions/question.action'
 import { api } from '@/lib/api'
 import handleError from '@/lib/handlers/error'
 import { NotFoundError, ValidationError } from '@/lib/http-errors'
@@ -11,58 +12,21 @@ import dbConnect from '@/lib/mongoose'
 import Link from 'next/link'
 import React from 'react'
 
-const questions = [
-{
-    _id: "1",
-    title: "How to learn React?",
-    description: "I want to learn React, can anyone help me?",
-    tags: [
-    { _id: "1", name: "popular" },
-    { _id: "2", name: "JavaScript" },
-    ],
-    author: { _id: "1", name: "John Doe", image: '/icons/avatar-1.png' },
-    upvotes: 10,
-    answers: 5,
-    views: 100,
-    createdAt: new Date(),
-},
-{
-    _id: "2",
-    title: "How to learn JavaScript?",
-    description: "I want to learn JavaScript, can anyone help me?",
-    tags: [
-    { _id: "1", name: "recommended" },
-    { _id: "2", name: "JavaScript" },
-    ],
-    author: { _id: "1", name: "John Doe", image: '/icons/avatar-1.png' },
-    upvotes: 10,
-    answers: 5,
-    views: 100,
-    createdAt: new Date(),
-},
-];
 
 interface SearchParams {
     searchParams: Promise<{[key: string]: string }>;
-        // query="react"
 }
 
 const HomePage = async ({searchParams} : SearchParams ) => {
-    const session = await auth();
-    // console.log('Session', session)
-
-    const {query = '', filter = ''} = await searchParams;
-
-    // substitute with database fetch
-    const filteredQuestions = questions.filter((question) => {
-        const matchesQuery = question.title
-            .toLowerCase()
-            .includes(query.toLowerCase());
-        const matchesFilter = filter
-            ? question.tags[0].name.toLowerCase() === filter.toLowerCase()
-            : true;
-        return matchesQuery && matchesFilter;
+    const {page, pageSize, query, filter} = await searchParams;
+    const {success, data, error} = await getQuestions({
+        page: Number(page) || 1, 
+        pageSize: Number(pageSize) || 10, 
+        query: query || '', 
+        filter: filter || ''
     });
+
+    const {questions} = data || {};
 
     return (
         <>
@@ -81,11 +45,21 @@ const HomePage = async ({searchParams} : SearchParams ) => {
                 />
             </section>
             <HomeFilter />
-            <div className="mt-10 flex w-full flex-col gap-6">
-                {filteredQuestions.map((question) => (
-                    <QuestionCard key={question._id} question={question} />
-                ))}
-            </div>
+            {success ? (
+                <div className="mt-10 flex w-full flex-col gap-6">
+                    {questions && questions.length > 0 ? questions.map((question) => (
+                        <QuestionCard key={question._id} question={question} />
+                    )) : (
+                        <div className="mt-10 flex w-full items-center justify-center">
+                            <p className="text-dark400_light700">No questions found.</p>
+                        </div>
+                    )}
+                </div>
+            ) : (
+                <div className="mt-10 flex w-full items-center justify-center">
+                    <p className="text-dark400_light700">{error?.message || 'Failed to fetch questions' }</p>
+                </div>
+            )}
         </>
     )
 }

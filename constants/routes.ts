@@ -5,7 +5,7 @@ const ROUTES = {
     SIGN_UP: '/sign-up',
     FORGOT_PASSWORD: '/forgot-password',
     ASK_QUESTION: '/ask-question',
-    QUESTIONS: '/questions',
+    QUESTIONS: '/',
     QUESTION_DETAIL: (id: string) => `/questions/${id}`,
     TAGS: (id: string) => `/tags/${id}`,
     PROFILE: (id: string) => `/profile/${id}`,

@@ -1,3 +1,5 @@
+// Looging is key to keeping track of what' shappening, catching errors, and debugging
+// Pino outputs logs in JSON
 import pino from 'pino';
 
 const isEdge = process.env.NEXT_RUNTIME === 'edge';
