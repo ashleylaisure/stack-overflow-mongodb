@@ -11,11 +11,16 @@ interface RemoveUrlQueryParams {
     keysToRemove: string[];
 }
 
+// URL State Managemnt using query-string library 
+// update URL query parameters with a new value
 export const formUrlQuery = ({params, key, value}: UrlQueryParams) => {
     const queryString = qs.parse(params);
 
+    // taking the current query string, updating it with a new key and vlaue
+    // which we're appending to the query string
     queryString[key] = value;
 
+    // and then appending it onto the URL and forming a new URL
     return qs.stringifyUrl({
         url: window.location.pathname,
         query: queryString,

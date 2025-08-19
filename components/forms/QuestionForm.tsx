@@ -56,7 +56,9 @@ const QuestionForm = ({question, isEdit=false}: Params) => {
             e.preventDefault();
             const tagInput = e.currentTarget.value.trim()
 
+            // check if tagInput is valid and if it already exists in the tags array
             if (tagInput && tagInput.length < 15 && !field.value.includes(tagInput)) {
+                // spread the field value and then append the additional tag input to the tags array
                 form.setValue('tags', [...field.value, tagInput]);
                 e.currentTarget.value = '';
                 form.clearErrors('tags');
@@ -80,10 +82,10 @@ const QuestionForm = ({question, isEdit=false}: Params) => {
         form.setValue("tags", newTags);
 
         if (newTags.length === 0) {
-        form.setError("tags", {
-            type: "manual",
-            message: "Tags are required",
-        });
+            form.setError("tags", {
+                type: "manual",
+                message: "Tags are required",
+            });
         }
     };
 
@@ -198,7 +200,7 @@ const QuestionForm = ({question, isEdit=false}: Params) => {
                                 </div>
                             </FormControl>
                             <FormDescription className="body-regular mt-2.5 text-light-500">
-                                Add up to 3 tags to describe your question.
+                                Add up to 3 tags to describe your question (press enter to add a tag).
                             </FormDescription>
                             <FormMessage />
                         </FormItem>

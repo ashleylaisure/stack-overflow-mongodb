@@ -11,6 +11,7 @@ export interface IInteractionDoc extends IInteraction, Document {}
 const InteractionSchema = new Schema<IInteraction>({
     user: { type: Schema.Types.ObjectId, ref: "User", required: true },
     action: {type: String, required: true},
+    // will either be a questionID or the answerID
     actionId: { type: Schema.Types.ObjectId, required: true },
     actionType: {type: String, enum: ["question", "answer"], required: true},
 }, { timestamps: true });

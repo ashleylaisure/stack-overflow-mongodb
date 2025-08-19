@@ -15,13 +15,17 @@ interface Props {
 const LocalSearch = ({ route, imgSrc, placeholder, otherClasses } : Props) => {
     const router = useRouter();
     const pathname = usePathname();
+
+    // ...?query=searchparams
+    // identify the searchparams and set to searchQuery
+    // input value
     const searchParams = useSearchParams();
     const query = searchParams.get('query') || '';
-
     const [searchQuery, setSearchQuery] = useState(query)
 
     useEffect(() => { 
         const delayDebounceFn = setTimeout(() => {
+            // if search query, want to form a new url containing that new search query
             if (searchQuery) {
                 const newUrl = formUrlQuery({
                     params: searchParams.toString(),
@@ -39,8 +43,6 @@ const LocalSearch = ({ route, imgSrc, placeholder, otherClasses } : Props) => {
                 }
             }
         }, 1000);
-
-        
         return () => clearTimeout(delayDebounceFn);
     }, [searchQuery, router, route, searchParams, pathname]);
 

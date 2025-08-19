@@ -17,11 +17,11 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { LogOut, Settings, User } from "lucide-react"
 import Link from "next/link"
-import Logout from "./LogoutLink"
 import { auth } from "@/auth"
 import { Button } from "@/components/ui/button"
 import ROUTES from "@/constants/routes"
 import Image from "next/image"
+import LogoutLink from "./LogoutLink"
 
 const UserAvatar =  async () => {
     const session = await auth()
@@ -86,7 +86,7 @@ const UserAvatar =  async () => {
                     <DropdownMenuSeparator />
                     <DropdownMenuItem variant="destructive">
                         <LogOut className="h-[1.2rem] w-[1.2rem] mr-2" />
-                        <Logout />
+                        <LogoutLink />
                     </DropdownMenuItem>
                 </DropdownMenuContent>
             </DropdownMenu>
@@ -95,16 +95,16 @@ const UserAvatar =  async () => {
             <div>
                 <Link href={ROUTES.SIGN_IN}>
                     <Button className='small-medium btn-secondary w-full min-h-[41px] rounded-lg px-4 py-3'>
-                        <span className='primary-text-gradient'>Log In</span>
+                        <span className='primary-text-gradient'>Sign In</span>
                     </Button>
                 </Link>
 
-                <Link href={ROUTES.SIGN_UP}>
+                {/* <Link href={ROUTES.SIGN_UP}>
                     <Button className='small-medium light-border-2 btn-tertiary min-h-[41px]
                     w-full rounded-lg border px-4 py-3 shadow-none'>
                         <span className='primary-text-gradient'>Sign Up</span>
                     </Button>
-                </Link>
+                </Link> */}
             </div>
         )}
     </>
