@@ -5,7 +5,7 @@ export const sidebarLinks = [
         icon: '/icons/home.svg',
     }, {
         label: 'Questions',
-        route: '/questions',
+        route: '/',
         icon: '/icons/question.svg',
     }, {
         label: 'Community',
@@ -17,7 +17,7 @@ export const sidebarLinks = [
         icon: '/icons/star.svg',
     }, {
         label: 'Find Jobs',
-        route: '/find-jobs',
+        route: '/jobs',
         icon: '/icons/suitcase.svg',
     }, {
         label: 'Tags',

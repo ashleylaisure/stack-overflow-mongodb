@@ -32,7 +32,7 @@ export default function PopularTagsCard() {
           {popularTags.map(({_id, name, questions}) => (
             <Link 
               key={_id} 
-              href={ROUTES.TAGS(_id)}>
+              href={ROUTES.TAG(_id)}>
               <Card key={_id} className="flex-row items-center justify-between gap-4 p-2 ">
                   
                   <CardContent className="p-0 flex-1">
