@@ -204,15 +204,19 @@ export async function getQuestion(
 }
 
 export async function getQuestions(params: PaginatedSearchParams): Promise<ActionResponse<{questions: Question[], isNext: boolean}>> {
+  // First validate the params
   const validationResult = await action({
+    // are we on a specifc page, has the user provided a search query, filter, etc.
     params,
     schema: PaginatedSearchParamsSchema,
   });
 
+  // If validation fails, return the error
   if (validationResult instanceof Error) {
     return handleError(validationResult) as ErrorResponse;
   }
 
+  // if valid, lets destructure those params, and out of those params, lets apply those filtering options
   const { page = 1, pageSize = 10, query, filter } = params;
   const skip = (Number(page) - 1) * pageSize;
   const limit = Number(pageSize);
@@ -223,6 +227,7 @@ export async function getQuestions(params: PaginatedSearchParams): Promise<Actio
     return { success: true, data: { questions: [], isNext: false } };
   }
 
+  // If the user has provided a query, we will search for questions that match the title or content
   if (query) {
     filterQuery.$or = [
       { title: { $regex: new RegExp(query, "i") } },
@@ -232,6 +237,7 @@ export async function getQuestions(params: PaginatedSearchParams): Promise<Actio
 
   let sortCriteria = {};
 
+  // Depending on the filter, we will sort the questions accordingly
   switch (filter) {
     case "newest":
       sortCriteria = { createdAt: -1 };
@@ -249,6 +255,7 @@ export async function getQuestions(params: PaginatedSearchParams): Promise<Actio
   }
 
   try {
+    // fetch total questions
     const totalQuestions = await Question.countDocuments(filterQuery);
 
     const questions = await Question.find(filterQuery)
@@ -261,6 +268,7 @@ export async function getQuestions(params: PaginatedSearchParams): Promise<Actio
 
     const isNext = totalQuestions > skip + questions.length;
 
+    // return the response
     return {
       success: true,
       data: { questions: JSON.parse(JSON.stringify(questions)), isNext },
