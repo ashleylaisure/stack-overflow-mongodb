@@ -3,7 +3,7 @@ import Link from "next/link";
 import React from "react";
 
 import ROUTES from "@/constants/routes";
-import { cn, getDeviconClassName, getTechDescription } from "@/lib/utils";
+import { cn, formatNumber, getDeviconClassName, getTechDescription } from "@/lib/utils";
 
 import { Badge } from "../ui/badge";
 
@@ -93,8 +93,9 @@ const TagCard = ({
 
         <p className="small-medium text-dark400_light500 mt-3.5">
           <span className="body-semibold primary-text-gradient mr-2.5">
-            {questions}
-            {/* conditional render so that the amount of questions cap at 100 === 100+ */}
+            {/* You should provide a default value for 'questions' when calling 
+            'formatNumber' to ensure the argument is always a number. */}
+            {formatNumber(questions ?? 0)}
           </span>
           Questions
         </p>
