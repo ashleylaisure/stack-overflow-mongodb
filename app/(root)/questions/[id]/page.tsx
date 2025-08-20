@@ -3,11 +3,14 @@ import { Preview } from '@/components/editor/Preview';
 import Metric from '@/components/Metric';
 import UserIcon from '@/components/UserIcon';
 import ROUTES from '@/constants/routes';
-import { getQuestion } from '@/lib/actions/question.action';
+import { getQuestion, incrementViews } from '@/lib/actions/question.action';
 import { formatNumber, getTimeStamp } from '@/lib/utils';
 import { redirect } from 'next/navigation';
 import Link from 'next/link';
 import React from 'react'
+import View from '../view';
+import { after } from 'next/server';
+import AnswerForm from '@/components/forms/AnswerForm';
 
 // const sampleQuestion = {
 //     id: "q123",
@@ -93,7 +96,22 @@ import React from 'react'
 
 const QuestionDetailsPage = async ({params}: RouteParams) => {
     const {id} = await params
+
+    // Parellel data fetching enhances performance by starting multiple data requests simultaneously, 
+    // avoiding the waterfall effect of sequential requests
+    // it can still lead to challengs like slower requests, blocking rendering, increased server load,
+    // error handling complexity, or race conditions
+    // const [_, {success, data: question}] = await Promise.all([
+    //     await incrementViews({ questionId: id}),
+    //     await getQuestion({questionId: id}),
+    // ])
     const {success, data: question} = await getQuestion({questionId: id})
+
+    // the 'after' function executes tasks after a response has been sent without blocking the client
+    after(async () => {
+        await incrementViews({questionId: id})
+    })
+    
 
     if(!success || !question) return redirect(ROUTES.NOT_FOUND)
 
@@ -101,6 +119,7 @@ const QuestionDetailsPage = async ({params}: RouteParams) => {
 
     return (
         <>
+            {/* <View questionId={id}/> */}
             <div className="flex-start w-full flex-col">
                 <div className="flex w-full flex-col-reverse justify-between">
                     <div className="flex items-center justify-start gap-1">
@@ -158,8 +177,11 @@ const QuestionDetailsPage = async ({params}: RouteParams) => {
                         compact
                     />
                 ))}
-
             </div>
+
+            <section className="my-5">
+                <AnswerForm />
+            </section>
         </>
     )
 }
