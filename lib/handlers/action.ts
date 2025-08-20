@@ -14,7 +14,10 @@ type ActionOptions<T> = {
     authorize?: boolean;
 };
 
-
+// automatically gives us access to the session of the currenlty logged in user
+// we can set the authorized to true while calling this handler, which will ensure
+// that the user has to be authenticated and authroized to submit an answer
+// and return the id of that user
 async function action<T>({params, schema, authorize = false,}: ActionOptions<T>) {
     // 1. Checking whether the schema and params are provided and validated.
     if (schema && params) {

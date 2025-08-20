@@ -34,6 +34,9 @@ interface Props {
 }
 
 const AnswerForm = ({ questionId, questionTitle, questionContent }: Props) => {
+    // The `useTransition` hook is used to manage the state of the submission process asynchronously, 
+    // which allows for smoother UI interactions. It makes state updates less blocking for user inputs,
+    // resulting in a better user experience while the answer is being submitted.
     const [isAnswering, startAnsweringTransition] = useTransition();
     const [isAISubmitting, setIsAISubmitting] = useState(false);
     const session = useSession();
@@ -46,7 +49,9 @@ const AnswerForm = ({ questionId, questionTitle, questionContent }: Props) => {
     });
 
     const handleSubmit = async (values: z.infer<typeof AnswerSchema>) => {
+
         startAnsweringTransition(async () => {
+            
             const result = await createAnswer({
                 questionId,
                 content: values.content,
@@ -55,20 +60,13 @@ const AnswerForm = ({ questionId, questionTitle, questionContent }: Props) => {
             if (result.success) {
                 form.reset();
 
-                toast({
-                title: "Success",
-                description: "Your answer has been posted successfully",
-                });
+                toast.success("Your answer has been posted successfully")
 
                 if (editorRef.current) {
                 editorRef.current.setMarkdown("");
                 }
             } else {
-                toast({
-                title: "Error",
-                description: result.error?.message,
-                variant: "destructive",
-                });
+                toast.error(result.error?.message || 'Failed to create answer');
             }
         });
     };
