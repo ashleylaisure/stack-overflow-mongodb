@@ -12,6 +12,7 @@ import View from '../view';
 import { after } from 'next/server';
 import AnswerForm from '@/components/forms/AnswerForm';
 import { getAnswers } from '@/lib/actions/answer.action';
+import AllAnswers from '@/components/answers/AllAnswers';
 
 // const sampleQuestion = {
 //     id: "q123",
@@ -188,6 +189,16 @@ const QuestionDetailsPage = async ({params}: RouteParams) => {
                     />
                 ))}
             </div>
+
+            <section className="my-5">
+                <AllAnswers
+                    data={answersResult?.answers}
+                    success={areAnswersLoaded}
+                    error={answersError}
+                    totalAnswers={answersResult?.totalAnswers || 0 }
+                />
+
+            </section>
 
             <section className="my-5">
                 <AnswerForm questionId={question._id}/>

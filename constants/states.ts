@@ -38,6 +38,15 @@ export const EMPTY_TAGS = {
   },
 };
 
+export const EMPTY_ANSWERS = {
+  title: "no Answers Found",
+  message: "The answer board is empty. Make it rain with your brillent answer.",
+  // button: {
+  //   text: "Answer",
+  //   href: ROUTES.HOME,
+  // },
+};
+
 export const EMPTY_COLLECTIONS = {
   title: "Collections Are Empty",
   message:
