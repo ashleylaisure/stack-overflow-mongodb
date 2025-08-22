@@ -63,7 +63,7 @@ const AnswerForm = ({ questionId, questionTitle, questionContent }: Props) => {
                 toast.success("Your answer has been posted successfully")
 
                 if (editorRef.current) {
-                editorRef.current.setMarkdown("");
+                    editorRef.current.setMarkdown("");
                 }
             } else {
                 toast.error(result.error?.message || 'Failed to create answer');
@@ -73,56 +73,42 @@ const AnswerForm = ({ questionId, questionTitle, questionContent }: Props) => {
 
     const generateAIAnswer = async () => {
         if (session.status !== "authenticated") {
-        return toast({
-            title: "Please log in",
-            description: "You need to be logged in to use this feature",
-        });
+            return toast.error("You must be logged in to use this feature")
         }
 
-    setIsAISubmitting(true);
+        setIsAISubmitting(true);
 
-    const userAnswer = editorRef.current?.getMarkdown();
+        const userAnswer = editorRef.current?.getMarkdown() || "";
 
-    try {
-      const { success, data, error } = await api.ai.getAnswer(
-        questionTitle,
-        questionContent,
-        userAnswer
-      );
+        try {
+            const { success, data, error } = await api.ai.getAnswer(
+                questionTitle,
+                questionContent,
+                userAnswer
+            );
 
-      if (!success) {
-        return toast({
-          title: "Error",
-          description: error?.message,
-          variant: "destructive",
-        });
-      }
+            if (!success) {
+                return toast.error(error?.message || "There was a problem with your request")
+            }
 
-      const formattedAnswer = data.replace(/<br>/g, " ").toString().trim();
+            const formattedAnswer = data.replace(/<br>/g, " ").toString().trim();
 
-      if (editorRef.current) {
-        editorRef.current.setMarkdown(formattedAnswer);
+            if (editorRef.current) {
+                editorRef.current.setMarkdown(formattedAnswer);
 
-        form.setValue("content", formattedAnswer);
-        form.trigger("content");
-      }
+                form.setValue("content", formattedAnswer);
+                form.trigger("content");
+            }
 
-      toast({
-        title: "Success",
-        description: "AI generated answer has been generated",
-      });
-    } catch (error) {
-      toast({
-        title: "Error",
-        description:
-          error instanceof Error
-            ? error.message
-            : "There was a problem with your request",
-        variant: "destructive",
-      });
-    } finally {
-      setIsAISubmitting(false);
-    }
+        toast.success("AI generated answer has been generated")
+
+        } catch (error) {
+            if (error instanceof Error) {
+                toast.error(error?.message || "There was a problem with your request")
+            }
+        } finally {
+            setIsAISubmitting(false);
+        }
     };
 
     return (

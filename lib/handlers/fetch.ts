@@ -19,7 +19,7 @@ function isError(error: unknown): error is Error {
 export async function fetchHandler<T>(url: string, options: FetchOptions = {}): Promise<ActionResponse<T>> {
     // Destructure the options object to get the timeout and headers
     const {
-        timeout = 5000, 
+        timeout = 10000, 
         headers: customHeaders = {},
         ...restOptions 
     } = options;
