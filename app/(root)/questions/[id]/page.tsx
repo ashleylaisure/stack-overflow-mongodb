@@ -7,13 +7,15 @@ import { getQuestion, incrementViews } from '@/lib/actions/question.action';
 import { formatNumber, getTimeStamp } from '@/lib/utils';
 import { redirect } from 'next/navigation';
 import Link from 'next/link';
-import React from 'react'
+import React, { Suspense } from 'react'
 import View from '../view';
 import { after } from 'next/server';
 import AnswerForm from '@/components/forms/AnswerForm';
 import { getAnswers } from '@/lib/actions/answer.action';
 import AllAnswers from '@/components/answers/AllAnswers';
 import Votes from '@/components/votes/Votes';
+import { hasVoted } from '@/lib/actions/vote.action';
+import { Divide } from 'lucide-react';
 
 // const sampleQuestion = {
 //     id: "q123",
@@ -125,6 +127,8 @@ const QuestionDetailsPage = async ({params}: RouteParams) => {
         filter: 'latest'
     })
 
+    const hasVotedPromise = hasVoted({ targetId: question._id, targetType: 'question'})
+
     console.log("Answers", answersResult)
 
     const {author, createdAt, answers, views, tags, content, title} = question
@@ -147,12 +151,15 @@ const QuestionDetailsPage = async ({params}: RouteParams) => {
                     </div>
 
                     <div className="flex justify-end">
-                        <Votes 
-                            upvotes={question.upvotes} 
-                            hasupVoted={true} 
-                            downvotes={question.downvotes} 
-                            hasdownVoted={false}
-                        />
+                        <Suspense fallback={<div>Loading...</div>}>
+                            <Votes 
+                                upvotes={question.upvotes}
+                                downvotes={question.downvotes}
+                                targetType="question" 
+                                targetId={question._id}
+                                hasVotedPromise={hasVotedPromise}
+                            />
+                        </Suspense>
                     </div>
                 </div>
 

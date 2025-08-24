@@ -4,6 +4,8 @@ import action from "../handlers/action";
 import handleError from "../handlers/error";
 import { CreateVoteSchema, hasVotedSchema, UpdateVoteCountSchema } from "../validations";
 import { Answer, Question, Vote } from "@/database";
+import { revalidatePath } from "next/cache";
+import ROUTES from "@/constants/routes";
 
 export async function updateVoteCount(
     params: UpdateVoteCountParams,
@@ -41,7 +43,7 @@ export async function updateVoteCount(
     }
 }
 
-async function createVote(params: CreateVoteParams): Promise<ActionResponse>{
+export async function createVote(params: CreateVoteParams): Promise<ActionResponse>{
     const validationResult = await action({
         params,
         schema: CreateVoteSchema,
@@ -56,7 +58,7 @@ async function createVote(params: CreateVoteParams): Promise<ActionResponse>{
 
     const userId = validationResult.session?.user?.id
 
-    if (!userId) handleError(new Error("Unauthorized")) as ErrorResponse
+    if (!userId) return handleError(new Error("Unauthorized")) as ErrorResponse
 
     // create a session for use to atomatically modify the votes, before updating the database
     const session = await mongoose.startSession()
@@ -85,6 +87,10 @@ async function createVote(params: CreateVoteParams): Promise<ActionResponse>{
                         { new: true, session }
                 );
                 await updateVoteCount(
+                    { targetId, targetType, voteType: existingVote.voteType , change: -1 },
+                    session
+                );
+                await updateVoteCount(
                     { targetId, targetType, voteType, change: 1 },
                     session
                 );
@@ -92,7 +98,12 @@ async function createVote(params: CreateVoteParams): Promise<ActionResponse>{
         } else {
             // If the user has not voted yet, create a new vote
             await Vote.create(
-                [{ targetId, targetType, voteType, change: 1 }], 
+                [{ 
+                    author: userId,
+                    actionId: targetId,
+                    actionType: targetType,
+                    voteType
+                }], 
                 {session}
             );
             await updateVoteCount(
@@ -103,6 +114,8 @@ async function createVote(params: CreateVoteParams): Promise<ActionResponse>{
 
         await session.commitTransaction();
         session.endSession();
+
+        revalidatePath(ROUTES.QUESTION_DETAIL(targetId))
 
         return { success: true };
 
@@ -141,15 +154,15 @@ export async function hasVoted(params: hasVotedParams): Promise<ActionResponse<H
         if(!vote) {
             return {
                 success: false,
-                data: {hasUpvoted: false, hasDownvoted: false}
+                data: {hasUpVoted: false, hasDownVoted: false}
             };
         }
 
         return {
             success: true,
             data: {
-                hasUpvoted: vote?.voteType === "upvote",
-                hasDownvoted: vote?.voteType === "downvote"
+                hasUpVoted: vote?.voteType === "upvote",
+                hasDownVoted: vote?.voteType === "downvote"
             }
         };
         
