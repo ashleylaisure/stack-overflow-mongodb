@@ -153,9 +153,9 @@ const QuestionDetailsPage = async ({params}: RouteParams) => {
                     <div className="flex justify-end">
                         <Suspense fallback={<div>Loading...</div>}>
                             <Votes 
+                                targetType="question" 
                                 upvotes={question.upvotes}
                                 downvotes={question.downvotes}
-                                targetType="question" 
                                 targetId={question._id}
                                 hasVotedPromise={hasVotedPromise}
                             />
