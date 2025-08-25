@@ -16,6 +16,8 @@ import AllAnswers from '@/components/answers/AllAnswers';
 import Votes from '@/components/votes/Votes';
 import { hasVoted } from '@/lib/actions/vote.action';
 import { Divide } from 'lucide-react';
+import SaveQuestion from '@/components/questions/SaveQuestion';
+import { hasSavedQuestion } from '@/lib/actions/collection.action';
 
 // const sampleQuestion = {
 //     id: "q123",
@@ -128,6 +130,7 @@ const QuestionDetailsPage = async ({params}: RouteParams) => {
     })
 
     const hasVotedPromise = hasVoted({ targetId: question._id, targetType: 'question'})
+    const hasSavedQuestionPromise = hasSavedQuestion({questionId: question._id})
 
     console.log("Answers", answersResult)
 
@@ -150,7 +153,7 @@ const QuestionDetailsPage = async ({params}: RouteParams) => {
                         </Link>
                     </div>
 
-                    <div className="flex justify-end">
+                    <div className="flex justify-end items-center gap-4">
                         <Suspense fallback={<div>Loading...</div>}>
                             <Votes 
                                 targetType="question" 
@@ -158,6 +161,12 @@ const QuestionDetailsPage = async ({params}: RouteParams) => {
                                 downvotes={question.downvotes}
                                 targetId={question._id}
                                 hasVotedPromise={hasVotedPromise}
+                            />
+                        </Suspense>
+
+                        <Suspense fallback={<div>Loading...</div>}>
+                            <SaveQuestion questionId={question._id}
+                                hasSavedQuestionPromise={hasSavedQuestionPromise}
                             />
                         </Suspense>
                     </div>
