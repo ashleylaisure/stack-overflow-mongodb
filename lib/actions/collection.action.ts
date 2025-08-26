@@ -95,7 +95,7 @@ export async function hasSavedQuestion(params: CollectionBaseParams): Promise<Ac
     }
 }
 
-export async function getSavedQuestios(params: PaginatedSearchParams): Promise<ActionResponse<{ collection:Collection[], isNext: boolean }>> {
+export async function getSavedQuestions(params: PaginatedSearchParams): Promise<ActionResponse<{ collection:Collection[], isNext: boolean }>> {
     const validationResult = await action({
         params,
         schema: PaginatedSearchParamsSchema,
