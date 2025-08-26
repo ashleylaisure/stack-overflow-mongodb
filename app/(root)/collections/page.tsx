@@ -1,9 +1,11 @@
 import { auth } from '@/auth'
 import QuestionCard from '@/components/cards/QuestionCard'
 import DataRenderer from '@/components/DataRenderer'
+import CommonFilter from '@/components/filters/CommonFilter'
 import HomeFilter from '@/components/filters/HomeFilter'
 import LocalSearch from '@/components/search/LocalSearch'
 import { Button } from '@/components/ui/button'
+import { CollectionFilters } from '@/constants/filters'
 import ROUTES from '@/constants/routes'
 import { EMPTY_QUESTION } from '@/constants/states'
 import { getSavedQuestions } from '@/lib/actions/collection.action'
@@ -35,17 +37,21 @@ const CollectionsPage = async ({searchParams} : SearchParams ) => {
 
     return (
         <>
-            <section className="flex w-full flex-col-reverse justify-between gap-4 sm:flex-row sm:items-center">
-                <h1 className="h1-bold text-dark100_light900">Saved Questions</h1>
-            </section>
-            <section className="mt-11">
+            <h1 className="h1-bold text-dark100_light900">Saved Questions</h1>
+
+            <div className="mt-11 flex justify-between gap-5 max-sm:flex-col sm:items-center">
                 <LocalSearch 
                     route={ROUTES.COLLECTION}
                     imgSrc="/icons/search.svg" 
                     placeholder="Search Questions..." 
                     otherClasses='flex-1' 
                 />
-            </section>
+
+                <CommonFilter
+                    filters={CollectionFilters}
+                    otherClasses="min-h-[56px] sm:min-h-[170px]"
+                />
+            </div>
 
             <DataRenderer 
                 success={success}

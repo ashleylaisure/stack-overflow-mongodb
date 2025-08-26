@@ -101,8 +101,9 @@ import { hasSavedQuestion } from '@/lib/actions/collection.action';
 // };
 
 
-const QuestionDetailsPage = async ({params}: RouteParams) => {
+const QuestionDetailsPage = async ({params, searchParams}: RouteParams) => {
     const {id} = await params
+    const {page, pageSize, filter} = await searchParams
 
     // Parellel data fetching enhances performance by starting multiple data requests simultaneously, 
     // avoiding the waterfall effect of sequential requests
@@ -124,9 +125,9 @@ const QuestionDetailsPage = async ({params}: RouteParams) => {
     
     const { success: areAnswersLoaded, data: answersResult, error: answersError } = await getAnswers({
         questionId: id,
-        page: 1,
-        pageSize: 10,
-        filter: 'latest'
+        page: Number(page) || 1,
+        pageSize: Number(pageSize) || 10,
+        filter,
     })
 
     const hasVotedPromise = hasVoted({ targetId: question._id, targetType: 'question'})
