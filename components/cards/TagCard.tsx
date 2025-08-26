@@ -3,7 +3,7 @@ import Link from "next/link";
 import React from "react";
 
 import ROUTES from "@/constants/routes";
-import { cn, formatNumber, getDeviconClassName, getTechDescription } from "@/lib/utils";
+import { cn, getDeviconClassName, getTechDescription } from "@/lib/utils";
 
 import { Badge } from "../ui/badge";
 
@@ -15,7 +15,6 @@ interface Props {
   compact?: boolean;
   remove?: boolean;
   isButton?: boolean;
-  isCard?: boolean;
   handleRemove?: () => void;
 }
 
@@ -27,7 +26,6 @@ const TagCard = ({
   compact,
   remove,
   isButton,
-  isCard,
   handleRemove,
 }: Props) => {
   const iconClass = getDeviconClassName(name);
@@ -39,9 +37,7 @@ const TagCard = ({
 
   const Content = (
     <>
-      <Badge className={cn("subtle-medium  text-light400_light500 flex flex-row gap-2 rounded-md border-none px-4 py-2 uppercase",
-        isCard ? "bg-color-none": "background-light800_dark300",
-      )}>
+      <Badge className="subtle-medium background-light800_dark300 text-light400_light500 flex flex-row gap-2 rounded-md border-none px-4 py-2 uppercase">
         <div className="flex-center space-x-2">
           <i className={`${iconClass} text-sm`}></i>
           <span>{name}</span>
@@ -60,7 +56,7 @@ const TagCard = ({
       </Badge>
 
       {showCount && (
-        <p className="small-medium text-light400_light500 flex items-center mr-3">{questions}</p>
+        <p className="small-medium text-dark500_light700">{questions}</p>
       )}
     </>
   );
@@ -71,9 +67,9 @@ const TagCard = ({
         {Content}
       </button>
     ) : (
-      <div className="flex justify-between gap-2">
+      <Link href={ROUTES.TAG(_id)} className="flex justify-between gap-2">
         {Content}
-      </div>
+      </Link>
     );
   }
 
@@ -93,9 +89,7 @@ const TagCard = ({
 
         <p className="small-medium text-dark400_light500 mt-3.5">
           <span className="body-semibold primary-text-gradient mr-2.5">
-            {/* You should provide a default value for 'questions' when calling 
-            'formatNumber' to ensure the argument is always a number. */}
-            {formatNumber(questions ?? 0)}
+            {questions}+
           </span>
           Questions
         </p>

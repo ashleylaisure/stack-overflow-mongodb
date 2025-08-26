@@ -3,6 +3,7 @@ import QuestionCard from '@/components/cards/QuestionCard'
 import DataRenderer from '@/components/DataRenderer'
 import CommonFilter from '@/components/filters/CommonFilter'
 import HomeFilter from '@/components/filters/HomeFilter'
+import Pagination from '@/components/Pagination'
 import LocalSearch from '@/components/search/LocalSearch'
 import { Button } from '@/components/ui/button'
 import { HomePageFilters } from '@/constants/filters'
@@ -30,7 +31,7 @@ const HomePage = async ({searchParams} : SearchParams ) => {
         filter: filter || ''
     });
 
-    const {questions} = data || {};
+    const {questions, isNext} = data || {};
 
     return (
         <>
@@ -68,6 +69,11 @@ const HomePage = async ({searchParams} : SearchParams ) => {
                         ))}
                     </div>
                 }
+            />
+
+            <Pagination
+                page={page}
+                isNext={isNext || false}
             />
         </>
     )
