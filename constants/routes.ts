@@ -13,7 +13,7 @@ const ROUTES = {
     TAG: (id: string) => `/Tags/${id}`,
     PROFILES: '/profiles',
     PROFILE: (id: string) => `/profile/${id}`,
-    EDIT_PROFILE: (id: string) => `/profile/${id}/edit`,
+    PROFILE_EDIT: (id: string) => `/profile/${id}/edit`,
     SETTINGS: '/settings',
     NOT_FOUND: '/404',
 };
