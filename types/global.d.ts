@@ -85,3 +85,8 @@ interface Collection {
     author: string | Author;
     question: Question;
 }
+
+interface Filter {
+    name: string,
+    value: string,
+}

@@ -6,7 +6,7 @@ import { cn } from '@/lib/utils'
 import { formUrlQuery, removeKeysFromUrlQuery } from '@/lib/url'
 
 const filters = [
-    { label: 'All', value: 'all' },
+    // { label: 'All', value: 'all' },
     { label: 'Newest', value: 'newest' },
     { label: 'Popular', value: 'popular' },
     { label: 'Unanswered', value: 'unanswered' },
@@ -17,15 +17,15 @@ const HomeFilter = () => {
     const router = useRouter();
     const searchParams = useSearchParams();
     const filterParams = searchParams.get('filter');
-    const [active, setActive] = useState(filterParams || "all");
-    // const [active, setActive] = useState(filterParams || "");
+    // const [active, setActive] = useState(filterParams || "all");
+    const [active, setActive] = useState(filterParams || "");
 
     const handleTypeClick = (filter: string) => {
         let newUrl = "";
 
         if (filter === active) {
-            setActive("all");
-            // setActive("");
+            // setActive("all");
+            setActive("");
 
             newUrl = removeKeysFromUrlQuery({
                 params: searchParams.toString(),
@@ -45,7 +45,7 @@ const HomeFilter = () => {
     };
 
     return (
-        <div className="mt-10 flex-wrap gap-3 flex">
+        <div className="mt-10 hidden flex-wrap gap-3 sm:flex">
             {filters.map((filter) => (
                 <Button 
                     key={filter.value} 
