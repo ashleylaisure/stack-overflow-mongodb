@@ -1,3 +1,6 @@
+// The 'interface' keyword in TypeScript is used to define a contract for objects. 
+// It allows developers to specify the structure that an object should adhere to, 
+// making code more maintainable and easier to understand.
 
 interface Tag {
     _id: string;
@@ -75,4 +78,10 @@ interface User {
     location?: string;
     portfolio?: string;
     reputation?: number;
+}
+
+interface Collection {
+    _id: string;
+    author: string | Author;
+    question: Question;
 }
