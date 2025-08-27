@@ -92,3 +92,9 @@ interface Filter {
     name: string,
     value: string,
 }
+
+interface BadgeCounts {
+    GOLD: number;
+    SILVER: number;
+    BRONZE: number;
+}
