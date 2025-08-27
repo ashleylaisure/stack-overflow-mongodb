@@ -146,6 +146,7 @@ const QuestionDetailsPage = async ({params, searchParams}: RouteParams) => {
                         <UserIcon
                             id={author._id}
                             name={author.name}
+                            imageUrl={author.image}
                             className="size-[22px]"
                             fallbackClassName="text-[10px]"
                         />

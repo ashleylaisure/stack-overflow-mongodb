@@ -16,7 +16,7 @@ const EditQuestion = async ({params}: RouteParams) => {
     if (!success) return notFound();
 
     // confirm the loged in user is the author of the post
-    if(question?.author.toString() !== session?.user?.id) redirect(ROUTES.QUESTION_DETAIL(id));
+    if(question?.author._id.toString() !== session?.user?.id) redirect(ROUTES.QUESTION_DETAIL(id));
 
     return (
         <>
