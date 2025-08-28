@@ -15,6 +15,9 @@ import dbConnect from "../mongoose"
 
 import { auth } from "@/auth";
 import { Answer, Collection, Interaction, Vote } from "@/database";
+// import { CreateQuestionParams, DeleteQuestionParams, EditQuestionParams, GetQuestionParams, IncrementViewsParams } from "@/types/action"
+import { after } from "next/server"
+import { createInteraction } from "./interaction.action"
 
 // A server action that will be responsible for creating a question
 
@@ -66,6 +69,18 @@ export async function createQuestion(params: CreateQuestionParams): Promise<Acti
       { $push: { tags: { $each: tagIds } } },
       { session }
     );
+
+    // log the interaction
+    // The `after` function is utilized in the `createQuestion` function after the response is sent to
+    // log interactions without blocking the core operation. This leads to faster UI responses.
+    after(async () => {
+      await createInteraction({
+        action: "post",
+        actionId: question._id.toString(),
+        actionTarget: "question",
+        authorId: userId as string,
+      })
+    })
 
     await session.commitTransaction();
 
@@ -406,8 +421,18 @@ export async function deleteQuestion(
 		
 		// Delete question
     await Question.findByIdAndDelete(questionId).session(session);
-		
-		// Commit transaction
+
+    // log interaction
+    after(async () => {
+      await createInteraction({
+        action: "delete",
+        actionId: questionId,
+        actionTarget: "question",
+        authorId: user?.id as string,
+      });
+    });
+
+    // Commit transaction
     await session.commitTransaction();
     session.endSession();
 		

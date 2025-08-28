@@ -7,6 +7,8 @@ import handleError from "../handlers/error";
 import { Question, Vote } from "@/database";
 import { revalidatePath } from "next/cache";
 import ROUTES from "@/constants/routes";
+import { after } from "next/server";
+import { createInteraction } from "./interaction.action";
 
 export async function createAnswer(params: CreateAnswerParams): Promise<ActionResponse<IAnswerDoc>> {
     // has to return the document in the database that matches the answer schema
@@ -49,6 +51,15 @@ export async function createAnswer(params: CreateAnswerParams): Promise<ActionRe
 
         question.answers += 1
         await question.save({session})
+
+        after(async () => {
+            await createInteraction({
+                action: 'post',
+                actionId: newAnswer._id.toString(),
+                actionTarget: 'answer',
+                authorId: userId as string,
+            })
+        })
 
         await session.commitTransaction();
 
@@ -163,6 +174,15 @@ export async function deleteAnswer(
 
     // delete the answer
     await Answer.findByIdAndDelete(answerId);
+
+    after(async () => {
+        await createInteraction({
+            action: "delete",
+            actionId: answerId,
+            actionTarget: "answer",
+            authorId: user?.id as string,
+        });
+    });
 
     revalidatePath(`/profile/${user?.id}`);
 

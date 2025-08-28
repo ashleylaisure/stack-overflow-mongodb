@@ -6,6 +6,8 @@ import { CreateVoteSchema, hasVotedSchema, UpdateVoteCountSchema } from "../vali
 import { Answer, Question, Vote } from "@/database";
 import { revalidatePath } from "next/cache";
 import ROUTES from "@/constants/routes";
+import { after } from "next/server";
+import { createInteraction } from "./interaction.action";
 
 export async function updateVoteCount(
     params: UpdateVoteCountParams,
@@ -65,6 +67,13 @@ export async function createVote(params: CreateVoteParams): Promise<ActionRespon
     session.startTransaction()
 
     try {
+        const Model = targetType === "question" ? Question : Answer;
+
+        const contentDoc = await Model.findById(targetId).session(session);
+        if (!contentDoc) throw new Error(`${targetType} not found`);
+
+        const contentAuthorId = contentDoc.author.toString();
+
         const existingVote = await Vote.findOne({
             author: userId,
             actionId: targetId,
@@ -112,6 +121,15 @@ export async function createVote(params: CreateVoteParams): Promise<ActionRespon
             );
         }
 
+        after(async () => {
+            await createInteraction({
+                action: 'voteType',
+                actionId: targetId,
+                actionTarget: targetType,
+                authorId: contentAuthorId,
+            });
+        });
+        
         await session.commitTransaction();
         session.endSession();
 

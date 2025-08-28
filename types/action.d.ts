@@ -1,4 +1,3 @@
-import mongoose from "mongoose";
 
 interface SignInWithOAuthParams {
     provider: 'github' | 'google',
