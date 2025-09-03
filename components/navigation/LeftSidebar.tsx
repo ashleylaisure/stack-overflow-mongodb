@@ -43,7 +43,7 @@ export default async function LeftSidebar() {
     return (
         <Sidebar collapsible="icon">
             {/* HEADER */}
-            <SidebarHeader className="py-6">
+            <SidebarHeader className="min-h-[85px] flex-center">
                 <SidebarMenu>
                     <SidebarMenuItem>
                         <SidebarMenuButton asChild>

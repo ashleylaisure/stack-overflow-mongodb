@@ -6,7 +6,7 @@ import UserAvatar from "@/components/navigation/navbar/UserAvatar";
 const Navbar = () => {
 
     return (
-        <nav className="flex-between background-light900_dark200 sticky top-0 right-0 z-50 w-full gap-5 p-6 shadow-light-300 dark:shadow-none sm:px-12">
+        <nav className="flex-between background-light900_dark200 sticky top-0 right-0 z-50 w-full gap-5 p-3 min-h-[85px] shadow-light-300 dark:shadow-none sm:px-12">
 
             {/* LEFT */}
             <SidebarTrigger />
