@@ -148,7 +148,7 @@ const AuthForm = <T extends FieldValues>({
                             Sign up
                             </Link>
                         </p>
-                        <p className="text-sm text-dark500_light400">
+                        {/* <p className="text-sm text-dark500_light400">
                             Forgot Your Password?{" "}
                             <Link
                                 href={ROUTES.FORGOT_PASSWORD}
@@ -156,7 +156,7 @@ const AuthForm = <T extends FieldValues>({
                             >
                                 Reset Password
                             </Link>
-                        </p>
+                        </p> */}
                     </div>
                 ) : (
                     <p className="text-center text-sm text-dark500_light400">

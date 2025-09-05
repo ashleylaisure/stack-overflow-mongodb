@@ -44,7 +44,7 @@ const NavLinks = ({ userId }: {userId?: string}) => {
                                     isActive ? 'invert-colors' : 'invert-colors opacity-60'
                                 )}
                                 />
-                            <p className={cn(isActive ? 'medium' : '', 'text-sm text-dark300_light900')}>
+                            <p className={cn(isActive ? 'font-medium' : '', 'text-sm text-dark300_light900')}>
                                 {link.label}
                             </p>
                         </Link>

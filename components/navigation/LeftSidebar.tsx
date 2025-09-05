@@ -76,7 +76,7 @@ export default async function LeftSidebar() {
                 </SidebarGroup>
 
                 {/* ACTION */}
-                <SidebarGroup>
+                {/* <SidebarGroup>
                     <SidebarGroupLabel>Projects</SidebarGroupLabel>
                     <SidebarGroupAction>
                         <Plus /> <span className="sr-only">Add Project</span>
@@ -101,10 +101,10 @@ export default async function LeftSidebar() {
                             </SidebarMenuItem>
                         </SidebarMenu>
                     </SidebarGroupContent>
-                </SidebarGroup>
+                </SidebarGroup> */}
 
                 {/* COLLAPSIBLE */}
-                <Collapsible defaultOpen className="group/collapsible">
+                {/* <Collapsible defaultOpen className="group/collapsible">
                 <SidebarGroup>
                     <SidebarGroupLabel asChild>
                         <CollapsibleTrigger>
@@ -135,10 +135,10 @@ export default async function LeftSidebar() {
                         </SidebarGroupContent>
                     </CollapsibleContent>
                 </SidebarGroup>
-            </Collapsible>
+            </Collapsible> */}
 
             {/* NESTED */}
-            <SidebarGroup>
+            {/* <SidebarGroup>
                 <SidebarGroupLabel>Nested Items</SidebarGroupLabel>
                 <SidebarGroupContent>
                     <SidebarMenu>
@@ -170,12 +170,12 @@ export default async function LeftSidebar() {
                         </SidebarMenuItem>
                     </SidebarMenu>
                 </SidebarGroupContent>
-            </SidebarGroup>
+            </SidebarGroup> */}
 
             </SidebarContent>
 
             {/* FOOTER */}
-            <SidebarFooter>
+            {/* <SidebarFooter>
                 <SidebarMenu>
                     <SidebarMenuItem>
                         <DropdownMenu>
@@ -215,7 +215,7 @@ export default async function LeftSidebar() {
                         </DropdownMenu>
                     </SidebarMenuItem>
                 </SidebarMenu>
-            </SidebarFooter>
+            </SidebarFooter> */}
         </Sidebar>
     )
 }

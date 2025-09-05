@@ -13,7 +13,7 @@ const ROUTES = {
     QUESTION_EDIT: (id: string) => `/questions/${id}/edit`,
     QUESTION_ANSWER: (questionId: string, answerId:string) => `/questions/${questionId}#answer-${answerId}`,
     TAG: (id: string) => `/Tags/${id}`,
-    PROFILES: '/profiles',
+    PROFILES: '/profile',
     PROFILE: (id: string) => `/profile/${id}`,
     PROFILE_EDIT: (id: string) => `/profile/${id}/edit`,
     SETTINGS: '/settings',

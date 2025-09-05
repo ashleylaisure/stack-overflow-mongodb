@@ -2,10 +2,6 @@ import ROUTES from "./routes";
 
 export const sidebarLinks = [
     {
-        label: 'Dashboard',
-        route: ROUTES.DASHBOARD,
-        icon: '/icons/home.svg',
-    }, {
         label: 'Questions',
         route: ROUTES.HOME,
         icon: '/icons/question.svg',
@@ -25,11 +21,12 @@ export const sidebarLinks = [
         label: 'Tags',
         route: ROUTES.TAGS,
         icon: '/icons/tag.svg',
-    }, {
-        label: 'Profiles',
+    },{
+        label: 'Profile',
         route: ROUTES.PROFILES,
         icon: '/icons/user.svg',
-    }, {
+
+    },     {
         label: 'Ask a question',
         route: ROUTES.ASK_QUESTION,
         icon: '/icons/question.svg',
