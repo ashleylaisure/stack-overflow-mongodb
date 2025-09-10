@@ -4,7 +4,7 @@ import Link from "next/link";
 import React from "react";
 
 interface Props {
-    imgUrl: string;
+    imgUrl?: string;
     alt: string;
     value: string | number;
     title: string;
@@ -17,12 +17,12 @@ interface Props {
 
 const Metric = ({
     imgUrl, alt, value, title, href, textStyles, imgStyles, isAuthor, titleStyles
-    }: Props) => {
+}: Props) => {
 
     const metricContent = (
         <>
         <Image
-            src={imgUrl? imgUrl : "/icons/placeholder.svg"}
+            src={imgUrl? imgUrl : "/icons/user.svg"}
             width={16}
             height={16}
             alt={alt}
@@ -33,8 +33,8 @@ const Metric = ({
             {value}
 
             {title &&
-            <span className={cn('small-regular line-clamp-1', titleStyles)}>
-            {title}
+            <span className={cn('small-regular line-clamp-1', { 'max-sm:hidden': isAuthor }, titleStyles)}>
+                {title}
             </span>
             }
         </p>
@@ -43,7 +43,7 @@ const Metric = ({
 
     return href ? (
         <Link href={href} className="flex-center gap-1">
-        {metricContent}
+            {metricContent}
         </Link>
     ) : (
         <div className="flex-center gap-1">{metricContent}</div>
